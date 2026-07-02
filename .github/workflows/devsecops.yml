@@ -23,6 +23,8 @@ jobs:
     # Docker Security Scanning Stage
     docker-scan:
         uses: ./.github/workflows/docker-scan.yml
+        secrets: inherit
+
     # dast:
     #     uses: ./.github/workflows/dast.yml
     # sonar-scan:
