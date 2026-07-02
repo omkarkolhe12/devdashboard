@@ -1,1 +1,42 @@
 # I have to ensure the packages and dependencies used in my code are secure and up to date. This workflow will run on every push and pull request to check for any vulnerabilities in the dependencies.
+
+name: Dependency Scan
+
+on:
+    workflow_call:
+
+jobs:
+    dependency-scan:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v7
+
+            - name: Setup Go
+              uses: actions/setup-go@v6
+              with:
+                  go-version: '1.22'
+                  go-version-file: backend/go.mod
+                  cache-dependency-path: backend/go.sum
+            
+            - name: Install Govulncheck
+              run: go install golang.org/x/vuln/cmd/govulncheck@latest
+
+            - name: Run Govulncheck
+              run: govulncheck ./...
+              working-directory: backend
+
+            - name: Setup Node.js
+              uses: actions/setup-node@v6
+              with:
+                  node-version: '20'
+                  cache: 'npm'
+                  cache-dependency-path: frontend/package-lock.json
+
+            - name: Install npm Packages
+              run: npm install --legacy-peer-deps
+              working-directory: frontend
+
+            - name: Run Dependency Scan
+              run: npm audit
+              working-directory: frontend
