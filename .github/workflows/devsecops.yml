@@ -20,10 +20,10 @@ jobs:
     dependency-scan:
         uses: ./.github/workflows/dependency-scan.yml
 
-        
+    # Docker Security Scanning Stage
+    docker-scan:
+        uses: ./.github/workflows/docker-scan.yml
     # dast:
     #     uses: ./.github/workflows/dast.yml
     # sonar-scan:
     #     uses: ./.github/workflows/sonar-scan.yml
-    # docker-scan:
-    #     uses: ./.github/workflows/docker-scan.yml
