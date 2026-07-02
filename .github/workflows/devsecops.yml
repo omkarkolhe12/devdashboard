@@ -25,7 +25,11 @@ jobs:
         uses: ./.github/workflows/docker-scan.yml
         secrets: inherit
 
+    # SonarQube Scan Stage
+    sonar-scan:
+        uses: ./.github/workflows/sonar-scan.yml
+        secrets: inherit
+
     # dast:
     #     uses: ./.github/workflows/dast.yml
-    # sonar-scan:
-    #     uses: ./.github/workflows/sonar-scan.yml
+    
