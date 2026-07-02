@@ -13,9 +13,6 @@ jobs:
             - name: Code Checkout
               uses: actions/checkout@v7
 
-            - name: Setup Docker
-              uses: docker/setup-docker-action@v5
-
             - name: Copy Example Env to main env
               run: cp .env.example .env
 
