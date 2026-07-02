@@ -1,0 +1,39 @@
+# Goal - Run the code tests for the application.
+
+name: Code Tests
+
+on:
+    workflow_call:
+
+jobs:
+    code-tests:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v7
+
+            - name: Setup Node.js
+              uses: actions/setup-node@v6
+              with:
+                  node-version: '20'
+                  cache: 'npm'
+                  cache-dependency-path: frontend/package-lock.json
+
+            - name: Install npm Packages
+              run: npm install --legacy-peer-deps
+              working-directory: frontend
+
+            - name: Run Unit Tests
+              run: npm test -- --coverage
+              working-directory: frontend
+
+            - name: Setup Go
+              uses: actions/setup-go@v6
+              with:
+                  go-version: '1.23'
+                  go-version-file: backend/go.mod
+                  cache-dependency-path: backend/go.sum
+            
+            - name: Run Go Tests
+              run: go test ./...
+              working-directory: backend

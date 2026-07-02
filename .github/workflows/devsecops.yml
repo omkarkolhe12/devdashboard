@@ -30,6 +30,16 @@ jobs:
         uses: ./.github/workflows/sonar-scan.yml
         secrets: inherit
 
+    # Run Tests
+    code-tests:
+        uses: ./.github/workflows/code-tests.yml
+
+    # Docker Push Stage
+    docker-push:
+        needs: [code-quality, secret-scanning, dependency-scan, docker-scan, sonar-scan, code-tests]
+        uses: ./.github/workflows/docker-push.yml
+        secrets: inherit
+
     # dast:
     #     uses: ./.github/workflows/dast.yml
     
