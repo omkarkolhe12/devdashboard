@@ -1,0 +1,24 @@
+# Goal - To run End to End DevSecOps Pipepline
+
+name: DevSecOps
+
+on:
+    push:
+        branches:
+            - main
+
+jobs:
+
+    # Code Stage (With Shift Left Approach)
+    code-quality:
+        uses: ./.github/workflows/code-quality.yml
+    # dependency-scan:
+    #     uses: ./.github/workflows/dependency-scan.yml
+    # dast:
+    #     uses: ./.github/workflows/dast.yml
+    # sonar-scan:
+    #     uses: ./.github/workflows/sonar-scan.yml
+    # secret-scanning:
+    #     uses: ./.github/workflows/secret-scanning.yml
+    # docker-scan:
+    #     uses: ./.github/workflows/docker-scan.yml
