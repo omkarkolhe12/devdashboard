@@ -22,4 +22,4 @@ jobs:
                 target: http://${{ secrets.EC2_HOST }}:8080
                 rules_file_name: .github/workflows/rules.txt
                 fail_action: false
-                allow_issue_writting: true
+                allow_issue_writting: false
