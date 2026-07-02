@@ -12,8 +12,14 @@ jobs:
             - name: Checkout code
               uses: actions/checkout@v7
 
-            - name: DAST Scan
-              uses: actions/dast@v2
+            - name: Wait for the application to be up and running
+              run: | 
+                timeout 60 sh -c 'until curl -s http://${{ secrets.EC2_HOST }}:8080; do sleep 5; done'
+
+            - name: Run OWASP ZAP Scan
+              uses: zaproxy/action-full-scan@v0.14.0
               with:
-                target_url: ${{ secrets.TARGET_URL }}
-                scan_type: 'full'
+                target: http://${{ secrets.EC2_HOST }}:8080
+                rules_file_name: .github/workflows/rules.txt
+                fail_action: false
+                allow_issue_writting: true
