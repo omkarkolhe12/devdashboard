@@ -1,0 +1,1 @@
+# I have to ensure the packages and dependencies used in my code are secure and up to date. This workflow will run on every push and pull request to check for any vulnerabilities in the dependencies.
