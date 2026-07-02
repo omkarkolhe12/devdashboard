@@ -1,1 +1,19 @@
 # Goal - To ensure my app is free from OWASP top 10 security issues.
+
+name: DAST
+
+on:
+    workflow_call:
+
+jobs:
+    dast:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v7
+
+            - name: DAST Scan
+              uses: actions/dast@v2
+              with:
+                target_url: ${{ secrets.TARGET_URL }}
+                scan_type: 'full'
