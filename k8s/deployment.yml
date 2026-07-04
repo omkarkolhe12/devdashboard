@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: devdashboard-frontend-deployment
+  namespace: devdahsboard
+  labels:
+    app: devdashboard-frontend
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app: devdashboard-frontend
+  template:
+    metadata:
+      labels:
+        app: devdashboard-frontend
+    spec:
+      containers:
+      - name: devdashboard-frontend
+        image: omkar1232/devdashboard-frontend:latest
+        ports:
+        - containerPort: 4173
+
