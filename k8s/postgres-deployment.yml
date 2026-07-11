@@ -36,6 +36,10 @@ spec:
               secretKeyRef:
                 name: devdashboard-secrets
                 key: POSTGRES_DB
+        volumeMounts:
+          - name: init
+            mountPath: /docker-entrypoint-initdb.d
+            readOnly: true
       volumes:
         - name: init
           configMap:
