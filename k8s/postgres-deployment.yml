@@ -36,6 +36,9 @@ spec:
               secretKeyRef:
                 name: devdashboard-secrets
                 key: POSTGRES_DB
+        readinessProbe:
+          exec:
+            command: ["sh", "-c", "pg_isready -U $(POSTGRES_USER) -d $(POSTGRES_DB)"]
         volumeMounts:
           - name: init
             mountPath: /docker-entrypoint-initdb.d
