@@ -50,15 +50,15 @@ spec:
         - name: init
           configMap:
             name: postgres-init
-    volumeClaimTemplates:
-      - metadata:
-          name: postgres-pvc
-          namespace: devdashboard
-        spec:
-          storageClassName: manual
-          accessModes:
-            - ReadWriteOnce
-          resources:
-            requests:
-              storage: 500Mi
+  volumeClaimTemplates:
+    - metadata:
+        name: postgres-pvc
+        namespace: devdashboard
+      spec:
+        storageClassName: manual
+        accessModes:
+          - ReadWriteOnce
+        resources:
+          requests:
+            storage: 500Mi
 
