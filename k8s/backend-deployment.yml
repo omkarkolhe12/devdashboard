@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: devdashboard-backend-deployment
+  namespace: devdashboard
+  labels:
+    app: devdashboard-backend
+spec:
+  replicas: 1 
+  selector:
+    matchLabels:
+      app: devdashboard-backend
+  template:
+    metadata:
+      labels:
+        app: devdashboard-backend
+    spec:
+      containers:
+      - name: devdashboard-backend
+        image: omkar1232/devdashboard-backend:latest
+        ports:
+        - containerPort: 808
+        env:
+          - name: POSTGRES_USER
+            valueFrom:
+              configMapKeyRef:
+                name: devdashboard-configmap
+                key: POSTGRES_USER
+          - name: POSTGRES_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: devdashboard-secrets
+                key: POSTGRES_PASSWORD
+          - name: POSTGRES_DB
+            valueFrom:
+              secretKeyRef:
+                name: devdashboard-secrets
+                key: POSTGRES_DB
+          - name: POSTGRES_URL
+            value: postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}?sslmode=disable
+          - name: PORT
+            value : "8080"

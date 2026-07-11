@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: devdashboard-configmap
+  namespace: devdashboard
+data:
+  POSTGRES_USER: devboard

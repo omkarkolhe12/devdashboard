@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgres
+  namespace: devdashboard
+spec:
+  selector:
+    app: devdashboard-postgres
+  ports:
+  - protocol: TCP
+    port: 5432
+    targetPort: 5432  # Pod/Application port
+
