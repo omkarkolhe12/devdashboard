@@ -52,7 +52,7 @@ spec:
             name: postgres-init
   volumeClaimTemplates:
     - metadata:
-        name: postgres-pvc
+        name: data
         namespace: devdashboard
       spec:
         storageClassName: manual
