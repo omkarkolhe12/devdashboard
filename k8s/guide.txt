@@ -1,0 +1,35 @@
+1. Execute command to give executable permissions to install.sh
+	chmod +x install.sh
+
+2. Run install.sh script, it will install docker and all other requirements.
+	./install.sh
+
+3. Create and Add user in docker group 
+	newgrp docker
+	sudo usermod -aG docker $USER
+
+4. You are all set now to create a kind cluster and worker nodes.
+
+-------------------- Frontend Setup Started ------------------------
+
+5. Create a Kind cluster first.
+	kind create cluster --name kind-config.yml
+
+6. Create namespace
+	kubectl apply -f namespace.yml
+
+7. Create pods
+	kubectl apply -f pod.yml
+
+8 Create Deployment
+	kubectl apply -f deployment.yml
+
+9. Create Service
+	kubectl apply -f service.yml
+
+10. Expose port mentioned in service.yml which is same as hostPost mentioned in kind-config.yml (In our case its 8080), to access our application for outer world.
+	Set inbound rule in security group.
+
+11. Now you can access the frontend application from browser on port 8080
+
+--------------------- Frontend Setup Completed -----------------------
