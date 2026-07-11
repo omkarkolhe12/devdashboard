@@ -1,12 +1,13 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
-  name: postgres-deployment
+  name: postgres-statefulset
   namespace: devdashboard
   labels:
     app: devdashboard-postgres
 spec:
-  replicas: 1
+  serviceName: postgres  # Must match the name of the headless service (postgres-service-statefulset.yml)
+  replicas: 3
   selector:
     matchLabels:
       app: devdashboard-postgres
@@ -33,7 +34,7 @@ spec:
                 key: POSTGRES_PASSWORD
           - name: POSTGRES_DB
             valueFrom:
-              secretKeyRef:1
+              secretKeyRef:
                 name: devdashboard-secrets
                 key: POSTGRES_DB
         readinessProbe:
@@ -49,7 +50,15 @@ spec:
         - name: init
           configMap:
             name: postgres-init
-        - name: data
-          persistentVolumeClaim: 
-            claimName: postgres-pvc
+    volumeClaimTemplates:
+      - metadata:
+          name: postgres-pvc
+          namespace: devdashboard
+        spec:
+          storageClassName: manual
+          accessModes:
+            - ReadWriteOnce
+          resources:
+            requests:
+              storage: 500Mi
 
